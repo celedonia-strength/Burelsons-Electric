@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Burleson's Northwest Electric | Residential Electrician in Olympia, WA</title>
+  <meta name="description" content="Licensed & insured residential electrician serving Olympia and Thurston County, WA. Panel upgrades, EV chargers, wiring, and more. Call for a free estimate.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    .hero__headline, .section-heading, .nav__logo-text,
+    .service-card__name, .about__stat-num, .trust__label, .footer__logo {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--charcoal);
+      background: var(--warm-white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul, ol { list-style: none; }
+    button { font-family: inherit; cursor: pointer; }
+
+    /* =============================================
+       DESIGN TOKENS
+    ============================================= */
+    :root {
+      --navy:        #1b2a3b;
+      --navy-dark:   #0f1923;
+      --navy-mid:    #1e3048;
+      --amber:       #e8a020;
+      --amber-dark:  #c8881a;
+      --amber-pale:  rgba(232, 160, 32, 0.12);
+      --warm-white:  #f5f4f0;
+      --white:       #ffffff;
+      --charcoal:    #2d3748;
+      --mid-gray:    #6b7280;
+      --light-gray:  #e2ddd5;
+      --border-dim:  rgba(255, 255, 255, 0.10);
+      --ease:        0.25s ease;
+    }
+
+    /* =============================================
+       UTILITIES
+    ============================================= */
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .section-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 10px;
+    }
+    .section-heading {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      line-height: 1.13;
+      letter-spacing: -0.02em;
+    }
+    .section-heading--light { color: var(--white); }
+    .section-heading--dark  { color: var(--charcoal); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      line-height: 1;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: background var(--ease), color var(--ease),
+                  border-color var(--ease), transform 0.15s ease,
+                  box-shadow var(--ease);
+    }
+    .btn:hover  { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn--amber {
+      background: var(--amber);
+      color: var(--navy-dark);
+      border-color: var(--amber);
+    }
+    .btn--amber:hover {
+      background: var(--amber-dark);
+      border-color: var(--amber-dark);
+      box-shadow: 0 6px 20px rgba(232,160,32,0.3);
+    }
+    .btn--outline {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255,255,255,0.45);
+    }
+    .btn--outline:hover {
+      border-color: var(--white);
+      background: rgba(255,255,255,0.08);
+    }
+    .btn--amber-outline {
+      background: transparent;
+      color: var(--amber);
+      border-color: var(--amber);
+    }
+    .btn--amber-outline:hover {
+      background: var(--amber);
+      color: var(--navy-dark);
+    }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      background: var(--navy);
+      transition: box-shadow var(--ease), background var(--ease);
+    }
+    .nav.scrolled {
+      background: rgba(27, 42, 59, 0.97);
+      box-shadow: 0 2px 24px rgba(0, 0, 0, 0.4);
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    /* Logo */
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .nav__logo-bolt { color: var(--amber); display: flex; }
+    .nav__logo-text {
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--white);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+    .nav__logo-text small {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    /* Desktop links */
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav__link {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      transition: color var(--ease);
+    }
+    .nav__link:hover { color: var(--white); }
+    .nav__cta { padding: 10px 22px; font-size: 0.875rem; margin-left: 4px; }
+
+    /* Hamburger */
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 6px;
+      background: none;
+      border: none;
+    }
+    .nav__hamburger span {
+      display: block;
+      width: 23px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .nav__hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav__hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .nav__mobile {
+      display: none;
+      flex-direction: column;
+      background: var(--navy-dark);
+      padding: 8px 24px 24px;
+      border-top: 1px solid var(--border-dim);
+    }
+    .nav__mobile.is-open { display: flex; }
+    .nav__mobile .nav__link {
+      padding: 14px 0;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.8);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav__mobile .nav__link:last-of-type { border-bottom: none; }
+    .nav__mobile .btn { margin-top: 16px; justify-content: center; }
+
+    /* =============================================
+       HERO
+    ============================================= */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background-color: var(--navy-dark);
+      background-image: url('https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center 40%;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(10, 18, 28, 0.91) 0%,
+        rgba(27, 42, 59, 0.80) 55%,
+        rgba(10, 18, 28, 0.93) 100%
+      );
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.048;
+      pointer-events: none;
+    }
+
+    .hero__inner {
+      position: relative;
+      z-index: 1;
+      padding: 128px 0 96px;
+      max-width: 720px;
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: rgba(232, 160, 32, 0.1);
+      border: 1px solid rgba(232, 160, 32, 0.28);
+      border-radius: 100px;
+      padding: 6px 16px;
+      margin-bottom: 28px;
+    }
+    .hero__badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--amber);
+      flex-shrink: 0;
+    }
+    .hero__badge-text {
+      font-size: 0.73rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+
+    .hero__headline {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      margin-bottom: 20px;
+    }
+    .hero__headline em {
+      font-style: normal;
+      color: var(--amber);
+    }
+
+    .hero__sub {
+      font-size: clamp(1rem, 2vw, 1.18rem);
+      color: rgba(255, 255, 255, 0.68);
+      line-height: 1.7;
+      max-width: 540px;
+      margin-bottom: 40px;
+    }
+
+    .hero__actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .hero__scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .hero__scroll-line {
+      width: 1px;
+      height: 38px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+      animation: scrollPulse 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.35; transform: scaleY(1); }
+      50%       { opacity: 0.9;  transform: scaleY(1.1); }
+    }
+
+    /* =============================================
+       SERVICES
+    ============================================= */
+    .services {
+      background: var(--warm-white);
+      padding: 100px 0;
+    }
+    .services__header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .services__header .section-heading { margin-bottom: 14px; }
+    .services__sub {
+      color: var(--mid-gray);
+      font-size: 1.02rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .services__grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 22px;
+    }
+    .service-card:nth-child(1),
+    .service-card:nth-child(2),
+    .service-card:nth-child(3) { grid-column: span 4; }
+    .service-card:nth-child(4) { grid-column: span 7; }
+    .service-card:nth-child(5) { grid-column: span 5; }
+    .service-card:nth-child(6) {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      padding: 36px 48px;
+    }
+    .service-card:nth-child(6) .service-card__icon {
+      width: 60px; height: 60px;
+      flex-shrink: 0;
+      margin-bottom: 0;
+    }
+
+    .service-card {
+      background: var(--white);
+      border: 1px solid var(--light-gray);
+      border-radius: 12px;
+      padding: 36px 30px;
+      transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 44px rgba(27, 42, 59, 0.10);
+      border-color: rgba(232, 160, 32, 0.5);
+    }
+    .service-card__icon {
+      width: 50px; height: 50px;
+      background: var(--amber-pale);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--amber);
+      margin-bottom: 20px;
+    }
+    .service-card__icon svg {
+      width: 24px; height: 24px;
+      stroke: currentColor;
+      fill: none;
+    }
+    .service-card__name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .service-card__desc {
+      font-size: 0.875rem;
+      color: var(--mid-gray);
+      line-height: 1.65;
+    }
+
+    /* =============================================
+       ABOUT
+    ============================================= */
+    .about {
+      background: var(--navy);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .about::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.018) 0px,
+        rgba(255,255,255,0.018) 1px,
+        transparent 1px,
+        transparent 44px
+      );
+      pointer-events: none;
+    }
+
+    .about__inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about__heading { color: var(--white); margin-bottom: 22px; }
+
+    .about__body {
+      color: rgba(255,255,255,0.65);
+      line-height: 1.82;
+      font-size: 1rem;
+    }
+    .about__body p + p { margin-top: 14px; }
+
+    .about__actions { margin-top: 36px; }
+
+    /* Stats quad */
+    .about__stats-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .about__stat {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 30px 24px;
+    }
+    .about__stat-num {
+      font-size: 2.25rem;
+      font-weight: 900;
+      color: var(--amber);
+      letter-spacing: -0.025em;
+      line-height: 1;
+    }
+    .about__stat-lbl {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.42);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-top: 8px;
+    }
+
+    /* =============================================
+       TRUST SIGNALS
+    ============================================= */
+    .trust {
+      background: var(--warm-white);
+      border-top: 1px solid var(--light-gray);
+      border-bottom: 1px solid var(--light-gray);
+      padding: 72px 0;
+    }
+    .trust__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .trust__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 24px;
+      border-right: 1px solid var(--light-gray);
+    }
+    .trust__item:last-child { border-right: none; }
+
+    .trust__icon {
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      background: var(--amber-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--amber);
+      margin-bottom: 16px;
+    }
+    .trust__icon svg { width: 24px; height: 24px; stroke: currentColor; fill: none; }
+    .trust__label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 5px;
+    }
+    .trust__sub {
+      font-size: 0.8rem;
+      color: var(--mid-gray);
+      line-height: 1.5;
+    }
+
+    /* =============================================
+       CONTACT
+    ============================================= */
+    .contact {
+      background: var(--navy-mid);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.018) 0px,
+        rgba(255,255,255,0.018) 1px,
+        transparent 1px,
+        transparent 44px
+      );
+      pointer-events: none;
+    }
+    .contact__inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 80px;
+    }
+
+    /* Form side */
+    .contact__heading { color: var(--white); margin-bottom: 8px; }
+    .contact__sub {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.93rem;
+      margin-bottom: 36px;
+    }
+    .contact__form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group label {
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+    .form-group input,
+    .form-group textarea {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 6px;
+      padding: 13px 16px;
+      color: var(--white);
+      font-family: inherit;
+      font-size: 0.93rem;
+      outline: none;
+      transition: border-color var(--ease), background var(--ease);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--amber);
+      background: rgba(255,255,255,0.1);
+    }
+    .form-group input.error,
+    .form-group textarea.error {
+      border-color: #e05252;
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+    .form__submit { align-self: flex-start; padding: 15px 32px; font-size: 0.97rem; }
+    .form__note {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.28);
+      margin-top: 2px;
+    }
+
+    /* Info side */
+    .contact__info { padding-top: 4px; }
+    .contact__info-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 28px;
+    }
+    .contact__detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+    .contact__detail-icon {
+      width: 42px; height: 42px;
+      border-radius: 8px;
+      background: rgba(232,160,32,0.1);
+      border: 1px solid rgba(232,160,32,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--amber);
+      flex-shrink: 0;
+    }
+    .contact__detail-icon svg { width: 18px; height: 18px; stroke: currentColor; fill: none; }
+    .contact__detail-lbl {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.36);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 4px;
+    }
+    .contact__detail-val {
+      font-size: 0.97rem;
+      font-weight: 500;
+      color: var(--white);
+    }
+    .contact__detail-val a {
+      color: var(--white);
+      transition: color var(--ease);
+    }
+    .contact__detail-val a:hover { color: var(--amber); }
+
+    .contact__area {
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.09);
+    }
+    .contact__area-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 14px;
+    }
+    .contact__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .contact__tag {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 0.775rem;
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .footer {
+      background: var(--navy-dark);
+      padding: 52px 0 30px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer__main {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 28px;
+    }
+
+    .footer__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--white);
+      font-weight: 800;
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+    .footer__logo-bolt { color: var(--amber); }
+    .footer__tagline {
+      font-size: 0.83rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.65;
+      max-width: 250px;
+    }
+
+    .footer__col-head {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 16px;
+    }
+    .footer__nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer__nav a {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.5);
+      transition: color var(--ease);
+    }
+    .footer__nav a:hover { color: var(--amber); }
+
+    .footer__contact-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .footer__contact-lines span {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer__copy {
+      font-size: 0.775rem;
+      color: rgba(255,255,255,0.28);
+    }
+    .footer__license {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px;
+      padding: 4px 12px;
+      letter-spacing: 0.03em;
+    }
+
+    /* =============================================
+       SCROLL ANIMATIONS
+    ============================================= */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered service cards */
+    .services__grid .service-card:nth-child(1) { transition-delay: 0.00s; }
+    .services__grid .service-card:nth-child(2) { transition-delay: 0.07s; }
+    .services__grid .service-card:nth-child(3) { transition-delay: 0.14s; }
+    .services__grid .service-card:nth-child(4) { transition-delay: 0.21s; }
+    .services__grid .service-card:nth-child(5) { transition-delay: 0.28s; }
+    .services__grid .service-card:nth-child(6) { transition-delay: 0.35s; }
+
+    /* Staggered trust items */
+    .trust__item:nth-child(1) { transition-delay: 0.00s; }
+    .trust__item:nth-child(2) { transition-delay: 0.10s; }
+    .trust__item:nth-child(3) { transition-delay: 0.20s; }
+    .trust__item:nth-child(4) { transition-delay: 0.30s; }
+
+    /* =============================================
+       RESPONSIVE - TABLET (≤ 1024px)
+    ============================================= */
+    @media (max-width: 1024px) {
+      .services__grid { grid-template-columns: repeat(2, 1fr); }
+      .service-card:nth-child(1),
+      .service-card:nth-child(2),
+      .service-card:nth-child(3),
+      .service-card:nth-child(4),
+      .service-card:nth-child(5) { grid-column: auto; }
+      .service-card:nth-child(6) {
+        grid-column: 1 / -1;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding: 36px 30px;
+      }
+      .service-card:nth-child(6) .service-card__icon {
+        width: 50px; height: 50px;
+        margin-bottom: 20px;
+      }
+
+      .about__inner {
+        grid-template-columns: 1fr;
+        gap: 56px;
+      }
+      .about__stats-wrap {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .contact__inner {
+        grid-template-columns: 1fr;
+        gap: 56px;
+      }
+
+      .footer__main {
+        grid-template-columns: 1fr 1fr;
+      }
+      .footer__brand { grid-column: 1 / -1; }
+    }
+
+    /* =============================================
+       RESPONSIVE - MOBILE (≤ 768px)
+    ============================================= */
+    @media (max-width: 768px) {
+      /* Nav */
+      .nav__links  { display: none; }
+      .nav__hamburger { display: flex; }
+      .nav__mobile.is-open { display: flex; }
+
+      /* Services */
+      .services__grid { grid-template-columns: 1fr; }
+      .service-card:nth-child(n) { grid-column: 1 / -1; }
+      .service-card:nth-child(6) { flex-direction: column; align-items: flex-start; gap: 0; padding: 36px 30px; }
+      .service-card:nth-child(6) .service-card__icon { width: 50px; height: 50px; margin-bottom: 20px; }
+      .services__grid .service-card { transition-delay: 0s !important; }
+
+      /* About */
+      .about__stats-wrap { grid-template-columns: repeat(2, 1fr); }
+
+      /* Trust */
+      .trust__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1px;
+        background: var(--light-gray);
+      }
+      .trust__item {
+        background: var(--warm-white);
+        border-right: none;
+        padding: 28px 20px;
+      }
+      .trust__item:nth-child(n) { transition-delay: 0s; }
+
+      /* Contact form */
+      .form-row { grid-template-columns: 1fr; }
+
+      /* Footer */
+      .footer__main { grid-template-columns: 1fr; gap: 32px; }
+      .footer__brand { grid-column: auto; }
+      .footer__bottom { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+
+    /* =============================================
+       RESPONSIVE - SMALL MOBILE (≤ 480px)
+    ============================================= */
+    @media (max-width: 480px) {
+      .hero__actions {
+        flex-direction: column;
+      }
+      .hero__actions .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      .trust__grid { grid-template-columns: 1fr; }
+      .trust__item { border-right: none; }
+      .about__stats-wrap { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================
+       NAVIGATION
+  ========================================== -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="nav__inner">
+
+        <a href="#home" class="nav__logo" aria-label="Burleson's Northwest Electric - home">
+          <span class="nav__logo-bolt" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </span>
+          <span class="nav__logo-text">
+            Burleson's Northwest Electric
+            <small>Olympia, WA</small>
+          </span>
+        </a>
+
+        <ul class="nav__links" role="list">
+          <li><a href="#services" class="nav__link">Services</a></li>
+          <li><a href="#about"    class="nav__link">About</a></li>
+          <li><a href="#contact"  class="nav__link">Contact</a></li>
+          <li>
+            <a href="#contact" class="btn btn--amber nav__cta">Get a Quote</a>
+          </li>
+        </ul>
+
+        <button class="nav__hamburger" id="hamburger"
+                aria-label="Toggle menu" aria-expanded="false"
+                aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+
+      </div>
+    </div>
+
+    <div class="nav__mobile" id="mobile-menu" aria-label="Mobile navigation">
+      <a href="#services" class="nav__link">Services</a>
+      <a href="#about"    class="nav__link">About</a>
+      <a href="#contact"  class="nav__link">Contact</a>
+      <a href="#contact"  class="btn btn--amber">Get a Free Quote</a>
+    </div>
+  </nav>
+
+  <!-- =========================================
+       HERO
+  ========================================== -->
+  <section class="hero" id="home" aria-label="Hero: Residential electrician serving Olympia, WA">
+    <div class="container">
+      <div class="hero__inner">
+
+        <div class="hero__badge" aria-hidden="true">
+          <span class="hero__badge-dot"></span>
+          <span class="hero__badge-text">Serving Thurston County Since 2003</span>
+        </div>
+
+        <h1 class="hero__headline">
+          The Electrician<br>
+          <em>Olympia Calls First.</em>
+        </h1>
+
+        <p class="hero__sub">
+          Michael Burleson has been handling residential electrical work
+          across Thurston County for over 20 years. Panel upgrades, EV
+          chargers, new wiring, repairs. We show up on time and tell you
+          what's actually going on.
+        </p>
+
+        <div class="hero__actions">
+          <a href="#contact" class="btn btn--amber">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07
+                       A19.5 19.5 0 0 1 4.69 11.9 19.79 19.79 0 0 1 1.61 3.27
+                       A2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72
+                       c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11
+                       L7.91 8.56a16 16 0 0 0 6 6l.72-.87a2 2 0 0 1 2.11-.45
+                       c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/>
+            </svg>
+            Get a Free Quote
+          </a>
+          <a href="#services" class="btn btn--outline">
+            View Services
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="hero__scroll-hint" aria-hidden="true">
+      <div class="hero__scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- =========================================
+       SERVICES
+  ========================================== -->
+  <section class="services" id="services" aria-labelledby="services-heading">
+    <div class="container">
+
+      <header class="services__header animate-on-scroll">
+        <span class="section-label">What We Do</span>
+        <h2 class="section-heading section-heading--dark" id="services-heading">
+          Electrical Services You Can Count On
+        </h2>
+        <p class="services__sub">
+          Quick outlet fix or a whole-house rewire, you get the same straight
+          talk and clean work either way.
+        </p>
+      </header>
+
+      <div class="services__grid">
+
+        <article class="service-card animate-on-scroll">
+          <div class="service-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </div>
+          <h3 class="service-card__name">Residential Wiring &amp; Rewires</h3>
+          <p class="service-card__desc">
+            If your house was built before the '80s, the wiring has probably
+            seen better days. We rewire older homes all the time and do it
+            to current code.
+          </p>
+        </article>
+
+        <article class="service-card animate-on-scroll">
+          <div class="service-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="2"/>
+              <line x1="9" y1="2" x2="9" y2="22"/>
+              <line x1="13.5" y1="7"  x2="17" y2="7"/>
+              <line x1="13.5" y1="12" x2="17" y2="12"/>
+              <line x1="13.5" y1="17" x2="17" y2="17"/>
+              <circle cx="5.5" cy="7"  r="1.25" fill="currentColor" stroke="none"/>
+              <circle cx="5.5" cy="12" r="1.25" fill="currentColor" stroke="none"/>
+              <circle cx="5.5" cy="17" r="1.25" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <h3 class="service-card__name">Panel Upgrades &amp; Replacements</h3>
+          <p class="service-card__desc">
+            Running out of breaker slots or lights flicker when the AC kicks
+            on? A panel upgrade usually sorts it. We handle the permit too.
+          </p>
+        </article>
+
+        <article class="service-card animate-on-scroll">
+          <div class="service-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="3"/>
+              <circle cx="9"  cy="10" r="1.75"/>
+              <circle cx="15" cy="10" r="1.75"/>
+              <line x1="8" y1="15" x2="16" y2="15"/>
+            </svg>
+          </div>
+          <h3 class="service-card__name">Outlet &amp; Switch Installation</h3>
+          <p class="service-card__desc">
+            Two-prong outlets, dead receptacles, a kitchen running on one
+            shared circuit. We sort it out and make sure it's up to code.
+          </p>
+        </article>
+
+        <article class="service-card animate-on-scroll">
+          <div class="service-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21h6"/>
+              <path d="M12 3a6 6 0 0 1 6 6c0 2.22-1.2 4.16-3 5.2V18H9v-3.8A6 6 0 0 1 6 9a6 6 0 0 1 6-6z"/>
+            </svg>
+          </div>
+          <h3 class="service-card__name">Lighting Installation</h3>
+          <p class="service-card__desc">
+            Recessed cans, ceiling fans, under-cabinet strips, outdoor floods.
+            We run the wiring and do the full install, not just the fixture swap.
+          </p>
+        </article>
+
+        <article class="service-card animate-on-scroll">
+          <div class="service-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="16" height="14" rx="2"/>
+              <path d="M18 11h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"/>
+              <path d="M6 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+              <line x1="10" y1="12" x2="10" y2="17"/>
+              <line x1="7.5" y1="14.5" x2="12.5" y2="14.5"/>
+            </svg>
+          </div>
+          <h3 class="service-card__name">EV Charger Installation</h3>
+          <p class="service-card__desc">
+            Got a new EV and need a Level 2 charger at home? We run the
+            dedicated circuit, mount the unit, pull the permit. Usually done
+            in a day.
+          </p>
+        </article>
+
+        <article class="service-card animate-on-scroll">
+          <div class="service-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0
+                       l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91
+                       a2.12 2.12 0 0 1-3-3l6.91-6.91
+                       a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+          </div>
+          <h3 class="service-card__name">Troubleshooting &amp; Repairs</h3>
+          <p class="service-card__desc">
+            Something stopped working and you're not sure why? We track down
+            the problem, explain it in plain terms, and fix it.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================
+       ABOUT
+  ========================================== -->
+  <section class="about" id="about" aria-labelledby="about-heading">
+    <div class="container">
+      <div class="about__inner">
+
+        <div class="animate-on-scroll">
+          <span class="section-label">About Us</span>
+          <h2 class="section-heading about__heading" id="about-heading">
+            Local Work. Personal Service.<br>Done Right.
+          </h2>
+          <div class="about__body">
+            <p>
+              Burleson's Northwest Electric has been serving Olympia and Thurston
+              County for over 20 years. Owner Michael Burleson built this company
+              on one idea: treat every home like your own and do the work right
+              the first time.
+            </p>
+            <p>
+              Michael is a licensed master electrician with hands-on experience
+              in everything from older craftsman homes to new construction. He
+              shows up on time, gives honest assessments, and never recommends
+              work that isn't needed.
+            </p>
+            <p>
+              We're fully licensed, bonded, and insured. We pull permits
+              when required so your work is done safely and to code. When you
+              call Burleson's, you get Michael.
+            </p>
+          </div>
+          <div class="about__actions">
+            <a href="#contact" class="btn btn--amber-outline">Schedule a Visit</a>
+          </div>
+        </div>
+
+        <div class="about__stats-wrap animate-on-scroll" role="list" aria-label="Company highlights">
+          <div class="about__stat" role="listitem">
+            <div class="about__stat-num">20+</div>
+            <div class="about__stat-lbl">Years in Business</div>
+          </div>
+          <div class="about__stat" role="listitem">
+            <div class="about__stat-num">800+</div>
+            <div class="about__stat-lbl">Homes Served</div>
+          </div>
+          <div class="about__stat" role="listitem">
+            <div class="about__stat-num">5 ★</div>
+            <div class="about__stat-lbl">Customer Rating</div>
+          </div>
+          <div class="about__stat" role="listitem">
+            <div class="about__stat-num">100%</div>
+            <div class="about__stat-lbl">Licensed &amp; Insured</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================
+       TRUST SIGNALS
+  ========================================== -->
+  <section class="trust" aria-label="Why choose Burleson's Northwest Electric">
+    <div class="container">
+      <div class="trust__grid" role="list">
+
+        <div class="trust__item animate-on-scroll" role="listitem">
+          <div class="trust__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
+          <div class="trust__label">Licensed &amp; Insured</div>
+          <div class="trust__sub">WA State licensed master electrician, fully bonded</div>
+        </div>
+
+        <div class="trust__item animate-on-scroll" role="listitem">
+          <div class="trust__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+              <line x1="12" y1="1" x2="12" y2="7"/>
+              <line x1="12" y1="17" x2="12" y2="23"/>
+              <line x1="8.5" y1="11" x2="8.5" y2="13"/>
+              <line x1="15.5" y1="11" x2="15.5" y2="13"/>
+            </svg>
+          </div>
+          <div class="trust__label">Free Estimates</div>
+          <div class="trust__sub">No-obligation quotes on all projects, big or small</div>
+        </div>
+
+        <div class="trust__item animate-on-scroll" role="listitem">
+          <div class="trust__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="6"/>
+              <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+            </svg>
+          </div>
+          <div class="trust__label">20+ Years Experience</div>
+          <div class="trust__sub">Decades of hands-on residential electrical work</div>
+        </div>
+
+        <div class="trust__item animate-on-scroll" role="listitem">
+          <div class="trust__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <div class="trust__label">Local &amp; Family-Owned</div>
+          <div class="trust__sub">Proudly rooted in Olympia, WA since 2003</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================
+       CONTACT
+  ========================================== -->
+  <section class="contact" id="contact" aria-labelledby="contact-heading">
+    <div class="container">
+      <div class="contact__inner">
+
+        <!-- Form -->
+        <div>
+          <span class="section-label">Get in Touch</span>
+          <h2 class="section-heading contact__heading" id="contact-heading">
+            Request a Free Estimate
+          </h2>
+          <p class="contact__sub">
+            Give us a few details and we'll get back to you the same or next
+            business day. No sales pitch, just straight answers.
+          </p>
+
+          <form class="contact__form animate-on-scroll" id="contact-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name"
+                       placeholder="Jane Smith"
+                       autocomplete="name" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone"
+                       placeholder="(360) 555-0100"
+                       autocomplete="tel" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email"
+                     placeholder="jane@example.com"
+                     autocomplete="email" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Tell Us About Your Project</label>
+              <textarea id="message" name="message" required
+                placeholder="e.g. I need my electrical panel upgraded and a couple of new outlets installed in the garage..."></textarea>
+            </div>
+            <button type="submit" class="btn btn--amber form__submit">
+              Send Message
+            </button>
+            <p class="form__note">We typically respond within one business day. No spam. Ever.</p>
+          </form>
+        </div>
+
+        <!-- Info -->
+        <div class="contact__info animate-on-scroll">
+          <p class="contact__info-title">Contact Information</p>
+
+          <div class="contact__detail">
+            <div class="contact__detail-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2
+                         19.79 19.79 0 0 1-8.63-3.07
+                         A19.5 19.5 0 0 1 4.69 11.9
+                         19.79 19.79 0 0 1 1.61 3.27
+                         A2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72
+                         c.127.96.361 1.903.7 2.81
+                         a2 2 0 0 1-.45 2.11L7.91 8.56
+                         a16 16 0 0 0 6 6l.72-.87
+                         a2 2 0 0 1 2.11-.45
+                         c.907.339 1.85.573 2.81.7
+                         A2 2 0 0 1 21 16z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact__detail-lbl">Phone</div>
+              <div class="contact__detail-val">
+                <a href="tel:+13605550182">(360) 555-0182</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact__detail">
+            <div class="contact__detail-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact__detail-lbl">Email</div>
+              <div class="contact__detail-val">
+                <a href="mailto:hello@burlesonnwelectric.com">hello@burlesonnwelectric.com</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact__detail">
+            <div class="contact__detail-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="10" r="3"/>
+                <path d="M12 2a8 8 0 0 0-8 8c0 5.33 8 14 8 14s8-8.67 8-14a8 8 0 0 0-8-8z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact__detail-lbl">Location</div>
+              <div class="contact__detail-val">Olympia, WA 98501</div>
+            </div>
+          </div>
+
+          <div class="contact__area">
+            <p class="contact__area-title">Service Area</p>
+            <div class="contact__tags" role="list" aria-label="Cities served">
+              <span class="contact__tag" role="listitem">Olympia</span>
+              <span class="contact__tag" role="listitem">Lacey</span>
+              <span class="contact__tag" role="listitem">Tumwater</span>
+              <span class="contact__tag" role="listitem">Yelm</span>
+              <span class="contact__tag" role="listitem">Tenino</span>
+              <span class="contact__tag" role="listitem">Rochester</span>
+              <span class="contact__tag" role="listitem">Rainier</span>
+              <span class="contact__tag" role="listitem">Thurston County</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================
+       FOOTER
+  ========================================== -->
+  <footer class="footer" aria-label="Site footer">
+    <div class="container">
+      <div class="footer__main">
+
+        <div class="footer__brand">
+          <div class="footer__logo" aria-label="Burleson's Northwest Electric">
+            <span class="footer__logo-bolt" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+            </span>
+            Burleson's Northwest Electric
+          </div>
+          <p class="footer__tagline">
+            Licensed residential electrical contractor proudly serving
+            Olympia and Thurston County, WA since 2003.
+          </p>
+        </div>
+
+        <div>
+          <p class="footer__col-head">Navigation</p>
+          <nav class="footer__nav" aria-label="Footer navigation">
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <a href="#contact">Free Estimate</a>
+          </nav>
+        </div>
+
+        <div>
+          <p class="footer__col-head">Contact</p>
+          <div class="footer__contact-lines">
+            <span>(360) 555-0182</span>
+            <span>hello@burlesonnwelectric.com</span>
+            <span>Olympia, WA 98501</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copy">
+          &copy; 2024 Burleson's Northwest Electric. All rights reserved.
+        </p>
+        <span class="footer__license" aria-label="Washington State Electrical License number">
+          WA License #BURLENW123AA
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================
+       JAVASCRIPT
+  ========================================== -->
+  <script>
+    // Nav: add shadow after 60px scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Hamburger menu toggle
+    const hamburger   = document.getElementById('hamburger');
+    const mobileMenu  = document.getElementById('mobile-menu');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('is-open');
+      mobileMenu.classList.toggle('is-open', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Close mobile menu when any link inside it is clicked
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('is-open');
+        mobileMenu.classList.remove('is-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Scroll animations via IntersectionObserver
+    const animatedEls = document.querySelectorAll('.animate-on-scroll');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    animatedEls.forEach(el => observer.observe(el));
+
+    // Contact form: client-side validation + success state
+    const form = document.getElementById('contact-form');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const fields = form.querySelectorAll('[required]');
+      let valid = true;
+
+      fields.forEach(field => {
+        field.classList.remove('error');
+        const empty    = !field.value.trim();
+        const badEmail = field.type === 'email' && field.value.trim() &&
+                         !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value.trim());
+
+        if (empty || badEmail) {
+          field.classList.add('error');
+          valid = false;
+        }
+      });
+
+      if (!valid) return;
+
+      // Simulated success (no backend on this demo)
+      const btn = form.querySelector('.form__submit');
+      const original = btn.textContent;
+      btn.textContent = 'Message Sent!';
+      btn.style.cssText = 'background:#2a7d4f;border-color:#2a7d4f;cursor:default';
+      btn.disabled = true;
+      form.reset();
+
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.style.cssText = '';
+        btn.disabled = false;
+      }, 5000);
+    });
+
+    // Clear error state on input
+    form.querySelectorAll('[required]').forEach(field => {
+      field.addEventListener('input', () => field.classList.remove('error'));
+    });
+  </script>
+
+</body>
+</html>
